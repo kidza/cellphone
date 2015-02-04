@@ -48,6 +48,21 @@ return array(
             ),
         ),
     ),
+    'doctrine' => array(
+    		'driver' => array(
+    				'Cellphone_driver' => array(
+    						'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+    						'cache' => 'array',
+    						'paths' => array(__DIR__ . '/../src/' . 'Cellphone/Entity')
+    				),
+    				'orm_default' => array(
+    						'drivers' => array(
+    								'Cellphone\Entity' => 'Cellphone_driver'
+    						)
+    				)
+    		)
+    ),
+    
     'service_manager' => array(
         'abstract_factories' => array(
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',

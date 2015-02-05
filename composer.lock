@@ -4,8 +4,50 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "68be8679cf6d19528080f094ae50bb94",
+    "hash": "b9c91f77a68b8c6b99b342f6ef1f22ae",
     "packages": [
+        {
+            "name": "cgm/zf2-file-upload-examples",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cgmartin/ZF2FileUploadExamples.git",
+                "reference": "abd00718dda2b8a4715ce5a48e79050e6b50652b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cgmartin/ZF2FileUploadExamples/zipball/abd00718dda2b8a4715ce5a48e79050e6b50652b",
+                "reference": "abd00718dda2b8a4715ce5a48e79050e6b50652b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "zendframework/zendframework": ">=2.1.0"
+            },
+            "type": "module",
+            "autoload": {
+                "psr-0": {
+                    "ZF2FileUploadExamples": "src/"
+                },
+                "classmap": [
+                    "./Module.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Christopher Martin",
+                    "email": "cgmartin@gmail.com",
+                    "homepage": "http://cgmartin.com"
+                }
+            ],
+            "description": "Form file upload examples for Zend Framework 2",
+            "homepage": "https://github.com/cgmartin/ZF2FileUploadExamples",
+            "time": "2013-01-31 03:22:57"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.2.3",
@@ -783,12 +825,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/ZendDeveloperTools.git",
-                "reference": "4cb1864711eaa2856d2a0c698faedaaf167af248"
+                "reference": "6040e7dce564e8f581cf7213ea3e2f5952b3f7e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendDeveloperTools/zipball/4cb1864711eaa2856d2a0c698faedaaf167af248",
-                "reference": "4cb1864711eaa2856d2a0c698faedaaf167af248",
+                "url": "https://api.github.com/repos/zendframework/ZendDeveloperTools/zipball/6040e7dce564e8f581cf7213ea3e2f5952b3f7e5",
+                "reference": "6040e7dce564e8f581cf7213ea3e2f5952b3f7e5",
                 "shasum": ""
             },
             "require": {
@@ -836,7 +878,7 @@
                 "module",
                 "zf2"
             ],
-            "time": "2015-01-08 20:45:35"
+            "time": "2015-02-05 11:22:46"
         },
         {
             "name": "zendframework/zendframework",

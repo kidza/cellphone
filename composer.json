@@ -3,6 +3,7 @@
         "zendframework/zendframework": "2.3.0",
         "doctrine/doctrine-module": "dev-master",
         "doctrine/doctrine-orm-module": "dev-master",
-        "zendframework/zend-developer-tools": "dev-master"
+        "zendframework/zend-developer-tools": "dev-master",
+        "cgm/zf2-file-upload-examples": ">=1.0.0"
     }
 }

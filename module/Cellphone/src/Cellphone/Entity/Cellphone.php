@@ -17,9 +17,14 @@ class Cellphone {
 	protected $id;
 	
 	/**
+	 * @ORM\ManyToOne(targetEntity="PhoneManufacturer")
+	 */
+	protected $manufacturer;
+	
+	/**
 	 * @ORM\Column(type="string")
 	 */
-	protected $name;
+	protected $model;
 	
 	/**
 	 * @ORM\Column(type="string")
@@ -47,7 +52,7 @@ class Cellphone {
 	protected $size;
 	
 	/**
-     * @ORM\OneToMany(targetEntity="Entity\PhonePicture", mappedBy="cellphone")
+     * @ORM\OneToMany(targetEntity="PhonePicture", mappedBy="cellphone")
      */
 	protected $pictures;
 	
@@ -185,4 +190,90 @@ class Cellphone {
 	public function getSize() {
 		return $this->size;
 	}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->pictures = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set model
+     *
+     * @param string $model
+     * @return Cellphone
+     */
+    public function setModel($model)
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    /**
+     * Get model
+     *
+     * @return string 
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * Set manufacturer
+     *
+     * @param \Cellphone\Entity\PhoneManufacturer $manufacturer
+     * @return Cellphone
+     */
+    public function setManufacturer(\Cellphone\Entity\PhoneManufacturer $manufacturer = null)
+    {
+        $this->manufacturer = $manufacturer;
+
+        return $this;
+    }
+
+    /**
+     * Get manufacturer
+     *
+     * @return \Cellphone\Entity\PhoneManufacturer 
+     */
+    public function getManufacturer()
+    {
+        return $this->manufacturer;
+    }
+
+    /**
+     * Add pictures
+     *
+     * @param \Cellphone\Entity\PhonePicture $pictures
+     * @return Cellphone
+     */
+    public function addPicture(\Cellphone\Entity\PhonePicture $pictures)
+    {
+        $this->pictures[] = $pictures;
+
+        return $this;
+    }
+
+    /**
+     * Remove pictures
+     *
+     * @param \Cellphone\Entity\PhonePicture $pictures
+     */
+    public function removePicture(\Cellphone\Entity\PhonePicture $pictures)
+    {
+        $this->pictures->removeElement($pictures);
+    }
+
+    /**
+     * Get pictures
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPictures()
+    {
+        return $this->pictures;
+    }
 }

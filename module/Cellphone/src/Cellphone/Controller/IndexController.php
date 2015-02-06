@@ -1,10 +1,9 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @ copyright Solera
+ * @ author Ivan Stankovic 
+ * @ created Feb 6, 2015
+ * @ description : 
  */
 
 namespace Cellphone\Controller;
@@ -14,8 +13,21 @@ use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
+	
+	private $phoneForm;
+	
+	public function __construct($phoneForm) {
+		$this->phoneForm = $phoneForm;
+	}
     
     public function listAction() {
     	echo "munem";
+    }
+    
+    public function createAction() {
+    	
+    	return new ViewModel(array(
+    			'form' => $this->phoneForm,
+    	));
     }
 }

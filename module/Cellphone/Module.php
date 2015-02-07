@@ -4,51 +4,60 @@ namespace Cellphone;
 
 use DoctrineModule\Persistence\ObjectManagerAwareInterface;
 use Cellphone\Controller\IndexController;
+use Cellphone\Form\PhoneForm;
 
 class Module {
-	public function getConfig() {
-		return include __DIR__ . '/config/module.config.php';
-	}
-	public function getAutoloaderConfig() {
-		return array (
-				'Zend\Loader\StandardAutoloader' => array (
-						'namespaces' => array (
-								__NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__ 
-						) 
-				) 
-		);
-	}
-	public function getFormElementConfig() {
-		return array (
-				'invokables' => array (
-						'CellphoneForm' => 'Cellphone\Form\PhoneForm' 
-				),
-				'initializers' => array (
-						'ObjectManagerInitializer' => function ($element, $formElements) {
-							// look if the form implements the ObjectManagerAwareInterface
-							if ($element instanceof ObjectManagerAwareInterface) {
-								// locate the EntityManager using the serviceLocator
-								$services = $formElements->getServiceLocator ();
-								$entityManager = $services->get ( 'Doctrine\ORM\EntityManager' );
-								// set the forms EntityManager or Objectmanager, 2 names for the same thing
-								$element->setObjectManager ( $entityManager );
-							}
-						} 
-				) 
-		);
-	}
-	
-	public function getControllerConfig()
-	{
-		return array(
-				'factories' => array(
-						'Cellphone\Controller\Index' => function ($sm) {
-							$locator = $sm->getServiceLocator();
-							$phoneForm = $locator->get('FormElementManager')->get('CellphoneForm');
-							$controller = new IndexController($phoneForm);
-							return $controller;
-						},
-				),
-		);
-	}
+    public function getConfig() {
+        return include __DIR__ . '/config/module.config.php';
+    }
+    public function getAutoloaderConfig() {
+        return array (
+                'Zend\Loader\StandardAutoloader' => array (
+                        'namespaces' => array (
+                                __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__ 
+                        ) 
+                ) 
+        );
+    }
+    
+    public function getFormElementConfig() {
+        return array (
+                'factories' => array (
+                        'Cellphone\Form\PhoneForm' => function ($sm) {
+                            $serviceLocator = $sm->getServiceLocator ();
+                            $entityManager = $serviceLocator->get ( 'Doctrine\ORM\EntityManager' );
+                            $form = new PhoneForm ();
+                            $form->setObjectManager ( $entityManager );
+                            return $form;
+                        } 
+                ) 
+        );
+    }
+    
+    public function getControllerConfig() {
+        return array (
+                'factories' => array (
+                        'Cellphone\Controller\Index' => function ($sm) {
+                            $serviceLocator = $sm->getServiceLocator ();
+                            $phoneForm = $serviceLocator->get ( 'FormElementManager' )->get ( 'Cellphone\Form\PhoneForm' );
+                            $cellphoneService = $serviceLocator->get ( 'Cellphone\Service\CellphoneService' );
+                            $controller = new IndexController ( $phoneForm, $cellphoneService );
+                            return $controller;
+                        } 
+                ) 
+        );
+    }
+    
+    public function getServiceConfig() {
+        return array (
+                'factories' => array (
+                        
+                        'Cellphone\Service\CellphoneService' => function ($sm) {
+                            $entityManager = $sm->get ( 'Doctrine\ORM\EntityManager' );
+                            $cellphoneService = new Service\CellphoneService ( $entityManager );
+                            return $cellphoneService;
+                        } 
+                ) 
+        );
+    }
 }

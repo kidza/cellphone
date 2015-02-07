@@ -1,7 +1,7 @@
-<?php 
+<?php
 /**
  * @ copyright Solera
- * @ author Ivan Stankovic
+ * @ author Ivan Stankovic 
  * @ created Feb 7, 2015
  * @ description :
  */
@@ -14,5 +14,9 @@ if (!$showSuccessMessage) {
     echo $this->formCollection($form);
     echo $this->form()->closeTag();
 } else {
-    echo "Phone is successfully added";
+    echo "Phone is successfully updated";
 }
+?>
+
+<a href="<?php echo $this->url('cellphone', array('action' => 'list'));?>">Back</a>
+  

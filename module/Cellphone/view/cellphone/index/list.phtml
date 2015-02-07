@@ -1,0 +1,22 @@
+<?php
+/**
+ * @ copyright Solera
+ * @ author Ivan Stankovic 
+ * @ created Feb 7, 2015
+ * @ description :
+ */ 
+?>
+<table>
+<?php foreach ($this->phones as $phone) { ?>    
+    <tr>
+        <td><?php echo $phone->getManufacturer()->getName()?></td>
+        <td><?php echo $phone->getModel()?></td>
+        <td><a href="<?php echo $this->url('cellphone', array('action' => 'view', 'id' => $phone->getId()));?>">View</a></td>
+        <td><a href="<?php echo $this->url('cellphone', array('action' => 'edit', 'id' => $phone->getId()));?>">Edit</a></td>
+        <td><a href="<?php echo $this->url('cellphone', array('action' => 'delete', 'id' => $phone->getId()));?>">Delete</a></td>
+    </tr>
+<?php } ?>
+</table>
+
+<br/><a href="<?php echo $this->url('cellphone', array('action' => 'create'));?>">Add new cellphone</a>
+

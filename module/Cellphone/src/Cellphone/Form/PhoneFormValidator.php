@@ -13,7 +13,7 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-class Validator implements InputFilterAwareInterface
+class PhoneFormValidator implements InputFilterAwareInterface
 {
 	protected $inputFilter;
 
@@ -31,7 +31,7 @@ class Validator implements InputFilterAwareInterface
 
 
 			$inputFilter->add($factory->createInput([
-					'name' => 'Model',
+					'name' => 'model',
 					'required' => true,
 					'filters' => array(
 							array('name' => 'StripTags'),
@@ -53,7 +53,7 @@ class Validator implements InputFilterAwareInterface
 					]));
 
 			$inputFilter->add($factory->createInput([
-					'name' => 'dropdown',
+					'name' => 'status',
 					'filters' => array(
 							array('name' => 'StripTags'),
 							array('name' => 'StringTrim'),
@@ -73,7 +73,7 @@ class Validator implements InputFilterAwareInterface
 					]));
 
 			$inputFilter->add($factory->createInput([
-					'name' => 'Weight',
+					'name' => 'weight',
 					'required' => true,
 					'filters' => array(
 							array('name' => 'StripTags'),

@@ -9,13 +9,21 @@
 return array (
 		'router' => array(
 				'routes' => array(
-						
-						// The following is a route to simplify getting started creating
-						// new controllers and actions without needing to create a new
-						// module. Simply drop new controllers in, and you can access them
-						// using the path /application/:controller/:action
 						'cellphone' => array(
-								'type'    => 'Literal',
+						        'type'    => 'segment',
+						        'options' => array(
+						                'route'       => '/cellphone[/:action][/:id]',
+						                'constraints' => array(
+						                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+						                ),
+						                'defaults' => array(
+						                        '__NAMESPACE__' => 'Cellphone\Controller',
+						                        'controller' => 'Index',
+						                        'action'     => 'list',
+						                ),
+						        )
+						        
+								/*'type'    => 'Literal',
 								'options' => array(
 										'route'    => '/cellphone',
 										'defaults' => array(
@@ -38,7 +46,7 @@ return array (
 														),
 												),
 										),
-								),
+								),*/
 						),
 				),
 		),

@@ -10,45 +10,54 @@
 namespace Cellphone\Form;
 
 use Zend\Form\Form;
-// use Zend\InputFilter\InputFilterProviderInterface;
+use Cellphone\Entity\Cellphone;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 use DoctrineModule\Persistence\ObjectManagerAwareInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class PhoneForm extends Form implements ObjectManagerAwareInterface
 {
+    private $objectManager;
 	
 	public function init()
 	{
+		$this->setAttribute('method', 'post');
+		$hydrator = new DoctrineHydrator($this->objectManager);
+		$this->setHydrator($hydrator);
+		$this->setObject(new \Cellphone\Entity\Cellphone());
+		
 		$this->add(
 				array(
 						'type' => 'objectselect',
-						'name' => 'Manufacturer',
+						'name' => 'manufacturer',
 						'options' => array(
 								'object_manager' => $this->getObjectManager(),
-								'target_class'   => 'Cellphone\Entity\PhoneManufacturer',
+								'target_class'   => '\Cellphone\Entity\PhoneManufacturer',
 								'property'       => 'name',
-								'label'			 => 'Manufacturer'
-								/*'is_method' => true,
+								'label'			 => 'Manufacturer',
+								'is_method' => true,
 								'find_method'        => array(
-										'name'   => 'findAll',
+										'name'   => 'findBy',
 										'params' => array(
-												'orderBy'  => array('name' => 'ASC'),
-										),
-								),*/
-						),
+										        'criteria' => array(),
+												'orderBy'  => array('name' => 'ASC')
+										)
+								)
+						)
 				)
 		);
 	}
-	
 
 	public function __construct($name = null)
 	{
 		parent::__construct('');
-
-		$this->setAttribute('method', 'post');
+		
+		$cellphoneFomFilter = new PhoneFormValidator();
+		
+		$this->setInputFilter($cellphoneFomFilter->getInputFilter());
 
 		$this->add(array(
-				'name' => 'Model',
+				'name' => 'model',
 				'type' => 'Zend\Form\Element\Text',
 				'attributes' => array(
 						'placeholder' => 'Type something...',
@@ -71,7 +80,7 @@ class PhoneForm extends Form implements ObjectManagerAwareInterface
 		));
 
 		$this->add(array(
-				'name' => 'Active',
+				'name' => 'status',
 				'type' => 'Zend\Form\Element\Select',
 				'attributes' => array(
 						'required' => 'required',
@@ -79,14 +88,14 @@ class PhoneForm extends Form implements ObjectManagerAwareInterface
 				'options' => array(
 						'label' => 'Active',
 						'value_options' => array(
-								'0' => 'Yes',
-								'1' => 'No',
+								'1' => 'Yes',
+								'0' => 'No',
 						),
 				),
 		));
 
 		$this->add(array(
-				'name' => 'Weight',
+				'name' => 'weight',
 				'type' => 'Zend\Form\Element\Text',
 				'attributes' => array(
 						'placeholder' => 'Type something...',
@@ -98,7 +107,7 @@ class PhoneForm extends Form implements ObjectManagerAwareInterface
 		));
 
 		$this->add(array(
-				'name' => 'Memory',
+				'name' => 'memory',
 				'type' => 'Zend\Form\Element\Text',
 				'attributes' => array(
 						'placeholder' => 'Type something...',
@@ -110,7 +119,7 @@ class PhoneForm extends Form implements ObjectManagerAwareInterface
 		));
 
 		$this->add(array(
-				'name' => 'Size',
+				'name' => 'size',
 				'type' => 'Zend\Form\Element\Text',
 				'attributes' => array(
 						'placeholder' => 'Type something...',
@@ -119,6 +128,17 @@ class PhoneForm extends Form implements ObjectManagerAwareInterface
 				'options' => array(
 						'label' => 'Size',
 				),
+		));
+		
+		$this->add(array(
+		        'name' => 'submit',
+		        'attributes' => array(
+		                'type'           => 'submit',
+		                'value'          => 'Submit',
+		                'id'             => 'submitbutton',
+		                'data-toggle'    => 'tooltip',
+		                'title'          => 'Submit',
+		        )
 		));
 
 	}

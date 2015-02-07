@@ -1,0 +1,17 @@
+<?php
+/**
+ * @ copyright Solera
+ * @ author Ivan Stankovic 
+ * @ created Feb 7, 2015
+ * @ description :
+ */ 
+?>  
+Model: <?php echo $phone->getModel()?>
+<br />Manufacturer: <?php echo $phone->getManufacturer()->getName()?>
+<br />Description: <?php echo $phone->getModel()?>
+<br />Weight: <?php echo $phone->getWeight()?>
+<br />Memory: <?php echo $phone->getMemory()?>
+<br />Size: <?php echo $phone->getSize()?>
+
+<br/><br/><a href="<?php echo $this->url('cellphone', array('action' => 'edit', 'id' => $phone->getId()));?>">Edit</a>
+<br/><a href="<?php echo $this->url('cellphone', array('action' => 'list'));?>">Back</a>

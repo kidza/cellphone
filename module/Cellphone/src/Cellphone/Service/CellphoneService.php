@@ -4,34 +4,62 @@
  * @ copyright Solera
  * @ author Ivan Stankovic 
  * @ created Feb 7, 2015
- * @ description :
+ * @ description : Service class for cellphone entity. Injected in IndexController, 
+ * provides service methods for cellphone entity and keeps object manager away of controller.
  */
 namespace Cellphone\Service;
 
-class CellphoneService {
-    
+class CellphoneService
+{
+
     private $objectManager;
-    
-    public function __construct($entityManager) {
+
+    public function __construct($entityManager)
+    {
         $this->objectManager = $entityManager;
     }
-    
-    public function save($cellphone) {
+
+    /**
+     * Persists and save phone to db
+     * 
+     * @param Cellphone\Entity\Cellphone $cellphone
+     */
+    public function save($cellphone)
+    {
         $this->objectManager->persist($cellphone);
         $this->objectManager->flush($cellphone);
     }
-    
-    public function getCellphone($phoneId) {
+
+    /**
+     * Finds and returns cellphone according to parameter $phoneId
+     * 
+     * @param integer $phoneId
+     * @return \Cellphone\Entity\Cellphone
+     */
+    public function getCellphone($phoneId)
+    {
         $cellphone = $this->objectManager->find('\Cellphone\Entity\Cellphone', $phoneId);
         return $cellphone;
     }
-    
-    public function getAllPhones() {
+
+    /**
+     * Gets all active cellphones
+     * 
+     * @return array of \Cellphone\Entity\Cellphone
+     */
+    public function getAllPhones()
+    {
         $phones = $this->objectManager->getRepository('\Cellphone\Entity\Cellphone')->getPhones();
         return $phones;
     }
-    
-    public function deleteCellphone($phoneId) {
+
+    /**
+     * Delete cellphone with id = $phoneId
+     * 
+     * @param integer $phoneId
+     */
+    public function deleteCellphone($phoneId)
+    {
         $cellphone = $this->objectManager->find('\Cellphone\Entity\Cellphone', $phoneId);
         $this->objectManager->remove($cellphone);
         $this->objectManager->flush();
